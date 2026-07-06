@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ganga Heritage — Har Ki Pauri, Haridwar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Rajdhani:wght@500;600;700&family=Karla:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --haveli-blue: #163150;
+    --haveli-blue-deep: #0e2138;
+    --marigold: #d9a441;
+    --marigold-soft: #e8c374;
+    --sindoor: #a13f2e;
+    --ivory: #f1e8d8;
+    --ivory-dim: #e7dcc6;
+    --ink: #2a2118;
+    --line: rgba(217,164,65,0.35);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:'Karla', sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    letter-spacing:0.01em;
+  }
+  .eyebrow{
+    font-family:'Rajdhani', sans-serif;
+    font-weight:600;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    font-size:0.72rem;
+  }
+  a{color:inherit; text-decoration:none;}
+  img, svg{display:block; max-width:100%;}
+
+  /* ---------- Jali (lattice) background pattern ---------- */
+  .jali-bg{
+    background-image:
+      radial-gradient(circle at 10px 10px, var(--marigold) 1.4px, transparent 1.6px);
+    background-size: 26px 26px;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 6vw;
+    background:linear-gradient(to bottom, rgba(14,33,56,0.85), transparent);
+    transition:background 0.3s ease;
+  }
+  header.scrolled{ background:var(--haveli-blue-deep); box-shadow:0 2px 18px rgba(0,0,0,0.25);}
+  .brand{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.5rem;
+    color:var(--ivory);
+    display:flex; align-items:center; gap:10px;
+  }
+  .brand .mark{ width:26px; height:26px; }
+  nav ul{ display:flex; gap:34px; list-style:none; }
+  nav a{
+    color:var(--ivory-dim);
+    font-family:'Rajdhani', sans-serif;
+    font-weight:600;
+    letter-spacing:0.14em;
+    font-size:0.82rem;
+    text-transform:uppercase;
+    transition:color 0.2s;
+  }
+  nav a:hover{ color:var(--marigold-soft); }
+  .nav-cta{
+    border:1px solid var(--marigold);
+    padding:9px 20px;
+    border-radius:2px;
+    color:var(--marigold-soft) !important;
+  }
+  .nav-toggle{ display:none; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    background:
+      radial-gradient(ellipse at 50% 0%, #1c3d61 0%, var(--haveli-blue) 45%, var(--haveli-blue-deep) 100%);
+    overflow:hidden;
+    padding:0 6vw;
+  }
+  .hero-jali{
+    position:absolute; inset:0;
+    background-image: radial-gradient(circle at 12px 12px, rgba(217,164,65,0.18) 1.6px, transparent 1.8px);
+    background-size:34px 34px;
+    mask-image: radial-gradient(ellipse at 50% 30%, black 10%, transparent 72%);
+  }
+  .hero-content{ position:relative; z-index:3; max-width:780px; }
+  .hero .eyebrow{ color:var(--marigold-soft); margin-bottom:22px; }
+  .hero h1{
+    font-size:clamp(2.6rem, 7vw, 5.2rem);
+    color:var(--ivory);
+    line-height:1.05;
+  }
+  .hero h1 em{ font-style:italic; color:var(--marigold-soft); }
+  .hero p.sub{
+    margin-top:22px;
+    font-size:1.08rem;
+    color:var(--ivory-dim);
+    max-width:520px;
+    margin-left:auto; margin-right:auto;
+    line-height:1.7;
+  }
+  .hero-ctas{ margin-top:38px; display:flex; gap:18px; justify-content:center; flex-wrap:wrap; }
+  .btn{
+    font-family:'Rajdhani', sans-serif;
+    font-weight:600; letter-spacing:0.12em; text-transform:uppercase;
+    font-size:0.85rem;
+    padding:15px 34px;
+    border-radius:2px;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+    display:inline-block;
+  }
+  .btn-gold{ background:var(--marigold); color:var(--haveli-blue-deep); }
+  .btn-gold:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(217,164,65,0.35); }
+  .btn-line{ border:1px solid rgba(241,232,216,0.5); color:var(--ivory); }
+  .btn-line:hover{ border-color:var(--marigold-soft); color:var(--marigold-soft); }
+
+  /* Ghat skyline silhouette at bottom of hero */
+  .skyline{
+    position:absolute; bottom:0; left:0; right:0; z-index:2;
+    line-height:0;
+  }
+  .skyline svg{ width:100%; height:auto; }
+
+  /* Scallop arch divider between sections */
+  .arch-divider{ line-height:0; }
+  .arch-divider svg{ width:100%; height:44px; display:block; }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:110px 8vw; position:relative; }
+  .section-head{ max-width:640px; margin-bottom:64px; }
+  .section-head .eyebrow{ color:var(--sindoor); margin-bottom:16px; }
+  .section-head h2{ font-size:clamp(2rem, 4vw, 3rem); }
+  .section-head p{ margin-top:18px; font-size:1.05rem; line-height:1.75; color:#463c30; }
+
+  /* ---------- ABOUT ---------- */
+  .about{ background:var(--ivory); }
+  .about-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center;
+  }
+  .about-copy p{ font-size:1.05rem; line-height:1.85; color:#463c30; margin-bottom:20px; }
+  .about-copy p:last-child{margin-bottom:0;}
+  .stat-row{ display:flex; gap:44px; margin-top:38px; flex-wrap:wrap; }
+  .stat{ font-family:'Rajdhani', sans-serif; }
+  .stat .num{ font-family:'Cormorant Garamond', serif; font-size:2.6rem; color:var(--sindoor); line-height:1; }
+  .stat .lbl{ font-size:0.75rem; letter-spacing:0.14em; text-transform:uppercase; color:#6b5f4d; margin-top:6px; }
+
+  .jharokha-frame{
+    position:relative;
+    aspect-ratio:4/5;
+    background:linear-gradient(160deg,#1c3d61,#0e2138 70%);
+    clip-path: polygon(
+      50% 0%, 62% 3%, 72% 10%, 82% 8%, 92% 14%, 100% 24%,
+      100% 100%, 0% 100%, 0% 24%, 8% 14%, 18% 8%, 28% 10%, 38% 3%
+    );
+    display:flex; align-items:center; justify-content:center;
+    padding:40px;
+  }
+  .jharokha-frame .jali-bg{ position:absolute; inset:0; opacity:0.5; }
+  .jharokha-frame .inner-motif{ position:relative; z-index:2; width:56%; opacity:0.9;}
+
+  /* ---------- ROOMS ---------- */
+  .rooms{ background:var(--haveli-blue-deep); }
+  .rooms .section-head .eyebrow{ color:var(--marigold-soft); }
+  .rooms .section-head h2{ color:var(--ivory); }
+  .rooms .section-head p{ color:var(--ivory-dim); }
+
+  .room-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:34px;
+  }
+  .room-card{
+    background:rgba(241,232,216,0.04);
+    border:1px solid rgba(217,164,65,0.25);
+    padding:0 0 30px 0;
+    transition:transform 0.25s ease, border-color 0.25s ease;
+  }
+  .room-card:hover{ transform:translateY(-6px); border-color:var(--marigold); }
+  .room-swatch{
+    height:220px;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(135deg, var(--swatch-a), var(--swatch-b));
+  }
+  .room-swatch .jali-bg{ position:absolute; inset:0; opacity:0.55; }
+  .room-swatch .arch-icon{ position:absolute; bottom:-2px; right:16px; width:64px; opacity:0.9;}
+  .room-card h3{ color:var(--ivory); font-size:1.5rem; padding:26px 26px 6px; }
+  .room-card .tag{ padding:0 26px; font-family:'Rajdhani',sans-serif; color:var(--marigold-soft); font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:14px; display:block;}
+  .room-card p{ padding:0 26px; color:var(--ivory-dim); font-size:0.96rem; line-height:1.7; }
+
+  /* ---------- DINING (SATVIK) ---------- */
+  .dining{
+    background:var(--ivory);
+  }
+  .dining-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center;
+  }
+  .thali-art{
+    position:relative; aspect-ratio:1/1; border-radius:50%;
+    background:
+      repeating-conic-gradient(from 0deg, var(--marigold-soft) 0deg 8deg, transparent 8deg 20deg);
+    display:flex; align-items:center; justify-content:center;
+    max-width:420px;
+  }
+  .thali-art::before{
+    content:""; position:absolute; inset:14%;
+    border-radius:50%;
+    background:radial-gradient(circle at 40% 35%, #fff8ec, var(--ivory-dim) 70%);
+    box-shadow: inset 0 0 0 2px rgba(161,63,46,0.25);
+  }
+  .thali-art .center-mark{ position:relative; z-index:2; width:34%; }
+  .dining-copy .eyebrow{ color:var(--sindoor); margin-bottom:16px; }
+  .dining-copy p{ font-size:1.05rem; line-height:1.85; color:#463c30; margin-bottom:20px; }
+  .satvik-points{ list-style:none; margin-top:28px; display:grid; gap:14px; }
+  .satvik-points li{ display:flex; gap:14px; align-items:flex-start; font-size:0.98rem; color:#463c30; }
+  .satvik-points .dot{ width:8px; height:8px; margin-top:8px; border-radius:50%; background:var(--sindoor); flex:none; }
+
+  /* ---------- EXPERIENCE / LOCATION ---------- */
+  .experience{ background:var(--haveli-blue); color:var(--ivory); }
+  .experience .section-head .eyebrow{ color:var(--marigold-soft); }
+  .experience .section-head h2{ color:var(--ivory); }
+  .experience .section-head p{ color:var(--ivory-dim); }
+  .exp-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:70px; }
+  .exp-list{ display:grid; gap:28px; }
+  .exp-item{ display:flex; gap:20px; padding-bottom:26px; border-bottom:1px solid rgba(217,164,65,0.2); }
+  .exp-item .num{ font-family:'Cormorant Garamond', serif; font-size:1.6rem; color:var(--marigold-soft); flex:none; width:44px; }
+  .exp-item h3{ font-size:1.25rem; color:var(--ivory); margin-bottom:6px; }
+  .exp-item p{ color:var(--ivory-dim); font-size:0.95rem; line-height:1.7; }
+  .address-card{
+    border:1px solid rgba(217,164,65,0.35);
+    padding:36px;
+    height:fit-content;
+  }
+  .address-card .eyebrow{ color:var(--marigold-soft); margin-bottom:16px; }
+  .address-card p{ color:var(--ivory-dim); line-height:1.8; margin-bottom:10px; font-size:0.98rem; }
+  .address-card .divider{ height:1px; background:rgba(217,164,65,0.25); margin:20px 0; }
+
+  /* ---------- GALLERY STRIP ---------- */
+  .gallery{ background:var(--ivory); padding-bottom:0; }
+  .gallery-strip{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  .g-tile{ aspect-ratio:3/4; position:relative; overflow:hidden;
+    clip-path: polygon(50% 0%,60% 4%,70% 10%,80% 7%,90% 13%,100% 22%,100% 100%,0 100%,0 22%,10% 13%,20% 7%,30% 10%,40% 4%);
+  }
+  .g-tile .jali-bg{position:absolute; inset:0; opacity:0.5;}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testimonials{ background:var(--haveli-blue-deep); text-align:center; }
+  .testimonials .section-head{ margin-left:auto; margin-right:auto; text-align:center; }
+  .testimonials .section-head .eyebrow{ color:var(--marigold-soft); }
+  .testimonials .section-head h2{ color:var(--ivory); }
+  .t-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:34px; }
+  .t-card{ border:1px solid rgba(217,164,65,0.22); padding:34px 28px; }
+  .t-card p.quote{ color:var(--ivory-dim); font-size:1.02rem; line-height:1.75; font-style:italic; font-family:'Cormorant Garamond', serif; font-size:1.3rem;}
+  .t-card .who{ margin-top:20px; font-family:'Rajdhani',sans-serif; color:var(--marigold-soft); letter-spacing:0.08em; text-transform:uppercase; font-size:0.78rem; }
+
+  /* ---------- FOOTER / CTA ---------- */
+  footer{ background:var(--haveli-blue-deep); padding:90px 8vw 40px; color:var(--ivory-dim); }
+  .foot-cta{ text-align:center; margin-bottom:80px; }
+  .foot-cta h2{ color:var(--ivory); font-size:clamp(2rem,4vw,3rem); margin-bottom:24px; }
+  .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:50px; border-top:1px solid rgba(217,164,65,0.2); padding-top:50px; }
+  .foot-grid h4{ font-family:'Rajdhani',sans-serif; color:var(--marigold-soft); letter-spacing:0.14em; text-transform:uppercase; font-size:0.8rem; margin-bottom:18px; }
+  .foot-grid p, .foot-grid a{ font-size:0.92rem; line-height:1.9; display:block; }
+  .foot-grid a:hover{ color:var(--marigold-soft); }
+  .fine-print{ margin-top:60px; font-size:0.8rem; opacity:0.55; text-align:center; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    nav ul{ display:none; }
+    .about-grid, .dining-grid, .exp-grid{ grid-template-columns:1fr; gap:48px; }
+    .room-grid{ grid-template-columns:1fr; }
+    .gallery-strip{ grid-template-columns:repeat(2,1fr); }
+    .t-grid{ grid-template-columns:1fr; }
+    .foot-grid{ grid-template-columns:1fr; gap:36px; }
+    section{ padding:80px 6vw; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <a href="#top" class="brand">
+    <svg class="mark" viewBox="0 0 40 40" fill="none"><path d="M20 2 L26 12 L34 10 L30 20 L38 24 L28 26 L30 38 L20 30 L10 38 L12 26 L2 24 L10 20 L6 10 L14 12 Z" stroke="#D9A441" stroke-width="1.2"/></svg>
+    Ganga Heritage
+  </a>
+  <nav>
+    <ul>
+      <li><a href="#about">Heritage</a></li>
+      <li><a href="#rooms">Rooms</a></li>
+      <li><a href="#dining">Satvik Kitchen</a></li>
+      <li><a href="#experience">Har Ki Pauri</a></li>
+      <li><a href="#contact" class="nav-cta">Reserve</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-jali"></div>
+  <div class="hero-content">
+    <div class="eyebrow">A Heritage Residence · Har Ki Pauri, Haridwar</div>
+    <h1>Where the <em>Ganga</em><br>meets the House of Kings</h1>
+    <p class="sub">Steps from the ghats of Har Ki Pauri, Ganga Heritage pairs the carved jharokhas, jaali screens and hand-block textiles of a Rajasthani haveli with a kitchen that keeps the old satvik discipline — pure, vegetarian, and offered with devotion.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn btn-gold">Reserve Your Stay</a>
+      <a href="#rooms" class="btn btn-line">Explore the Rooms</a>
+    </div>
+  </div>
+  <div class="skyline">
+    <svg viewBox="0 0 1440 160" preserveAspectRatio="none">
+      <path d="M0,160 L0,90 L40,90 L40,70 L70,70 L70,90 L110,90 L110,60 Q120,45 130,60 L130,90 L170,90 L170,75 L200,75 L200,90 L250,90 L250,55 L260,45 L270,55 L270,90 L310,90 L310,65 Q320,50 330,65 L330,90 L380,90 L380,80 L410,80 L410,90 L460,90 L460,50 L470,35 L480,50 L480,90 L540,90 L540,70 L560,70 L560,90 L610,90 L610,60 Q622,42 634,60 L634,90 L690,90 L690,75 L715,75 L715,90 L760,90 L760,45 L772,30 L784,45 L784,90 L840,90 L840,65 L865,65 L865,90 L910,90 L910,55 Q922,38 934,55 L934,90 L990,90 L990,78 L1015,78 L1015,90 L1070,90 L1070,50 L1082,35 L1094,50 L1094,90 L1150,90 L1150,68 L1175,68 L1175,90 L1230,90 L1230,58 Q1242,42 1254,58 L1254,90 L1310,90 L1310,75 L1335,75 L1335,90 L1390,90 L1390,55 L1402,42 L1414,55 L1414,90 L1440,90 L1440,160 Z" fill="#0e2138"/>
+    </svg>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-copy">
+      <div class="eyebrow" style="color:var(--sindoor); margin-bottom:16px;">Our Story</div>
+      <h2 style="font-size:clamp(2rem,4vw,2.8rem); margin-bottom:24px;">A Home by the Ganga, Built in the Language of Rajasthan</h2>
+      <p>Ganga Heritage stands on Bhimgoda Road, a short walk of a few hundred metres from the ghats of Har Ki Pauri — close enough that the evening Ganga Aarti bells reach the balconies. What began as a modest riverside guesthouse has been reimagined as a heritage residence, its corridors and rooms detailed in the vocabulary of Rajasthani havelis: turned jharokha windows, carved jaali screens, and warm brass fittings in place of anything cold or modern.</p>
+      <p>It is a house built for pilgrims and travellers alike — for the family arriving at dawn for a holy dip, and for the traveller who wants a quiet balcony, a good thali, and a view of the river at rest.</p>
+      <div class="stat-row">
+        <div class="stat"><div class="num">140m</div><div class="lbl">to Har Ki Pauri Ghat</div></div>
+        <div class="stat"><div class="num">17</div><div class="lbl">Rooms &amp; Suites</div></div>
+        <div class="stat"><div class="num">100%</div><div class="lbl">Satvik Kitchen</div></div>
+      </div>
+    </div>
+    <div class="jharokha-frame">
+      <div class="jali-bg"></div>
+      <svg class="inner-motif" viewBox="0 0 200 200" fill="none">
+        <path d="M100 10 C130 10 150 40 150 70 L150 190 L50 190 L50 70 C50 40 70 10 100 10 Z" stroke="#D9A441" stroke-width="1.4"/>
+        <path d="M70 70 Q100 40 130 70" stroke="#D9A441" stroke-width="1.4"/>
+        <circle cx="100" cy="100" r="18" stroke="#D9A441" stroke-width="1.2"/>
+        <path d="M50 150 L150 150 M50 130 L150 130 M50 110 L150 110" stroke="#D9A441" stroke-width="0.6" opacity="0.6"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="arch-divider" style="background:var(--ivory);">
+  <svg viewBox="0 0 1440 44" preserveAspectRatio="none"><path d="M0,0 Q40,44 80,0 T160,0 T240,0 T320,0 T400,0 T480,0 T560,0 T640,0 T720,0 T800,0 T880,0 T960,0 T1040,0 T1120,0 T1200,0 T1280,0 T1360,0 T1440,0 L1440,0 L0,0 Z" fill="#0e2138"/></svg>
+</div>
+
+<section class="rooms" id="rooms">
+  <div class="section-head">
+    <div class="eyebrow">Rooms &amp; Suites</div>
+    <h2>Rajasthani Craft, Ganga Views</h2>
+    <p>Every room takes its palette and detailing from the royal havelis of Jodhpur and Jaipur — hand-block printed textiles, brass lamps, and carved wooden jaalis — set against the quiet of the riverside.</p>
+  </div>
+  <div class="room-grid">
+    <div class="room-card">
+      <div class="room-swatch" style="--swatch-a:#a13f2e; --swatch-b:#6e2a1f;">
+        <div class="jali-bg"></div>
+        <svg class="arch-icon" viewBox="0 0 60 60"><path d="M30 4 C42 4 50 18 50 30 L50 56 L10 56 L10 30 C10 18 18 4 30 4Z" stroke="#e8c374" stroke-width="1.2" fill="none"/></svg>
+      </div>
+      <h3>Haveli Room</h3>
+      <span class="tag">Garden / Courtyard Facing</span>
+      <p>Sandstone-toned walls, a carved wooden headboard, and a sit-out jharokha nook — a calm, elegant base steps from the ghats.</p>
+    </div>
+    <div class="room-card">
+      <div class="room-swatch" style="--swatch-a:#163150; --swatch-b:#0e2138;">
+        <div class="jali-bg"></div>
+        <svg class="arch-icon" viewBox="0 0 60 60"><path d="M30 4 C42 4 50 18 50 30 L50 56 L10 56 L10 30 C10 18 18 4 30 4Z" stroke="#e8c374" stroke-width="1.2" fill="none"/></svg>
+      </div>
+      <h3>Ganga View Room</h3>
+      <span class="tag">Private Balcony</span>
+      <p>Wake to the ghat and the river from your own balcony — the hotel's most requested room, ideal for the Ganga Aarti hour.</p>
+    </div>
+    <div class="room-card">
+      <div class="room-swatch" style="--swatch-a:#8a6a2a; --swatch-b:#5c4318;">
+        <div class="jali-bg"></div>
+        <svg class="arch-icon" viewBox="0 0 60 60"><path d="M30 4 C42 4 50 18 50 30 L50 56 L10 56 L10 30 C10 18 18 4 30 4Z" stroke="#e8c374" stroke-width="1.2" fill="none"/></svg>
+      </div>
+      <h3>Signature Suite</h3>
+      <span class="tag">River Facing · Sitting Area</span>
+      <p>The largest of our rooms, with a separate sitting area, brass-fitted writing desk, and uninterrupted views over the Ganga.</p>
+    </div>
+  </div>
+</section>
+
+<section class="dining" id="dining">
+  <div class="dining-grid">
+    <div class="thali-art">
+      <svg class="center-mark" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="30" stroke="#a13f2e" stroke-width="1.2"/>
+        <circle cx="50" cy="50" r="4" fill="#a13f2e"/>
+        <path d="M50 20 L50 26 M50 74 L50 80 M20 50 L26 50 M74 50 L80 50" stroke="#a13f2e" stroke-width="1.4"/>
+      </svg>
+    </div>
+    <div class="dining-copy">
+      <div class="eyebrow">The Satvik Kitchen</div>
+      <h2 style="font-size:clamp(2rem,4vw,2.8rem); margin-bottom:24px;">Food Cooked in Devotion, Not Just in a Kitchen</h2>
+      <p>In keeping with the sanctity of Har Ki Pauri, our kitchen follows the satvik tradition — purely vegetarian, free of onion and garlic on request, and prepared fresh each service rather than held or reheated. It is food meant to keep the body light and the mind clear, the way pilgrims have eaten by this river for generations.</p>
+      <ul class="satvik-points">
+        <li><span class="dot"></span> Pure vegetarian thalis, with a no onion-garlic option for those observing vrat or satvik diet</li>
+        <li><span class="dot"></span> Seasonal, local produce sourced fresh each morning</li>
+        <li><span class="dot"></span> Milk-based sweets and prasad-style offerings, made in-house</li>
+        <li><span class="dot"></span> Meals cooked to order — nothing pre-made or held in advance</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="experience" id="experience">
+  <div class="section-head">
+    <div class="eyebrow">Location</div>
+    <h2>A Few Steps from Har Ki Pauri</h2>
+    <p>The hotel sits on Bhimgoda Road, within easy walking distance of the ghats, the evening Aarti, and the old bazaars of Haridwar.</p>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="num">01</div>
+        <div><h3>Har Ki Pauri Ghat</h3><p>A short walk of a few minutes brings you to the ghat where the Ganga Aarti is held each evening — one of the reasons guests return year after year.</p></div>
+      </div>
+      <div class="exp-item">
+        <div class="num">02</div>
+        <div><h3>Chandi Devi &amp; Mansa Devi Temples</h3><p>Both hillside temples, reached by cable car, are within easy reach for a half-day of darshan.</p></div>
+      </div>
+      <div class="exp-item">
+        <div class="num">03</div>
+        <div><h3>Rajaji National Park</h3><p>For travellers extending their stay, the forests and wildlife of Rajaji lie a short drive from the hotel.</p></div>
+      </div>
+      <div class="exp-item">
+        <div class="num">04</div>
+        <div><h3>Local Bazaars</h3><p>The lanes around Har Ki Pauri are lined with shops for brassware, prasad, and Haridwar's well-known sweets.</p></div>
+      </div>
+    </div>
+    <div class="address-card">
+      <div class="eyebrow">Visit Us</div>
+      <p><strong style="color:var(--ivory);">Ganga Heritage</strong><br>Near Har Ki Pauri, Bhimgoda,<br>Haridwar, Uttarakhand 249401</p>
+      <div class="divider"></div>
+      <p><strong style="color:var(--ivory);">Check-in</strong> — 12:00 PM<br><strong style="color:var(--ivory);">Check-out</strong> — 11:00 AM</p>
+      <div class="divider"></div>
+      <p><strong style="color:var(--ivory);">Nearest Railhead</strong> — Haridwar Junction<br><strong style="color:var(--ivory);">Nearest Airport</strong> — Dehradun (Jolly Grant)</p>
+      <div class="divider"></div>
+      <p style="font-size:0.85rem; opacity:0.75;">Vehicles are restricted on the road closest to the ghats — our team will help arrange the short walk-in from the nearest drop point.</p>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="section-head">
+    <div class="eyebrow" style="color:var(--sindoor);">Glimpses</div>
+    <h2>The House, In Detail</h2>
+  </div>
+  <div class="gallery-strip">
+    <div class="g-tile" style="background:linear-gradient(160deg,#a13f2e,#6e2a1f);"><div class="jali-bg"></div></div>
+    <div class="g-tile" style="background:linear-gradient(160deg,#163150,#0e2138);"><div class="jali-bg"></div></div>
+    <div class="g-tile" style="background:linear-gradient(160deg,#8a6a2a,#5c4318);"><div class="jali-bg"></div></div>
+    <div class="g-tile" style="background:linear-gradient(160deg,#1c3d61,#163150);"><div class="jali-bg"></div></div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="section-head">
+    <div class="eyebrow">From Our Guests</div>
+    <h2>Voices from the Riverside</h2>
+  </div>
+  <div class="t-grid">
+    <div class="t-card">
+      <p class="quote">"The balcony looked straight onto the ghat — we sat there each evening for the Aarti."</p>
+      <div class="who">Family Traveller, Uttarakhand Trip</div>
+    </div>
+    <div class="t-card">
+      <p class="quote">"Homely staff, a genuinely good thali, and we could walk to the river in under a minute."</p>
+      <div class="who">Returning Guest</div>
+    </div>
+    <div class="t-card">
+      <p class="quote">"An old-world heritage feel, right by the Ganges — exactly what we were looking for."</p>
+      <div class="who">Pilgrimage Traveller</div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="foot-cta">
+    <div class="eyebrow" style="color:var(--marigold-soft); margin-bottom:18px;">Reserve Your Stay</div>
+    <h2>Come Sit by the Ganga With Us</h2>
+    <a href="#" class="btn btn-gold">Check Availability</a>
+  </div>
+  <div class="foot-grid">
+    <div>
+      <h4>Ganga Heritage</h4>
+      <p>Near Har Ki Pauri, Bhimgoda,<br>Haridwar, Uttarakhand 249401</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="#">reservations@gangaheritage.example</a>
+      <a href="#">+91 XXXXX XXXXX</a>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <a href="#rooms">Rooms &amp; Suites</a>
+      <a href="#dining">Satvik Kitchen</a>
+      <a href="#experience">Har Ki Pauri</a>
+    </div>
+  </div>
+  <div class="fine-print">© Ganga Heritage, Haridwar. Address and location details reflect the property near Har Ki Pauri, Bhimgoda. Contact details are placeholders — please update with your live phone number and email.</div>
+</footer>
+
+<script>
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+</script>
+</body>
+</html>
